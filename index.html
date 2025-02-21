@@ -34,25 +34,28 @@
           class="w-[22rem] flex flex-col items-center gap-4 mx-auto p-8 shadow-cstm rounded-xl bg-white"
           @click="generateCard()"
         >
-          <template x-for="(wordSet, index) in data" :key="index">
+          <template
+            x-for="(wordSet, index) in Object.values(data.cards)"
+            :key="index"
+          >
             <div
               class="relative w-full border-4 flex flex-col items-center gap-3 rounded-tl-2xl rounded-br-2xl py-4"
               :style="'border-color: ' + wordSet.color"
             >
               <div
-                class="text-xl scale-[1.5] absolute top-0 right-0 translate-x-1/2 -translate-y-1/2"
+                class="text-xl scale-[1.75] absolute top-0 right-0 translate-x-1/2 -translate-y-1/2"
                 x-text="wordSet.emoji"
               ></div>
 
               <template
-                x-for="(word, idx) in wordSet.words[currentLanguage]"
+                x-for="(word, idx) in wordSet.words[settings.language].slice(0, settings.cardsPerDifficulty)"
                 :key="idx"
               >
                 <div class="relative w-full">
                   <p x-text="word"></p>
                   <div
                     class="absolute font-bold left-0 top-1/2 size-7 flex items-center justify-center rounded-full -translate-x-1/2 -translate-y-1/2 text-white"
-                    x-text="idx + 1"
+                    x-text="idx + wordSet.order"
                     :style="'background-color: ' + wordSet.color"
                   ></div>
                 </div>
@@ -62,13 +65,28 @@
         </div>
       </section>
 
-      <section>
+      <section class="text-center mt-4">
         <button
           class="mb-4 px-4 py-2 bg-blue-500 text-white rounded-md"
           @click="toggleLanguage()"
         >
           Toggle Language
         </button>
+      </section>
+
+      <section class="text-center mt-4">
+        <label for="cardsPerDifficulty" class="text-lg font-semibold"
+          >Words Per Difficulty:</label
+        >
+        <select
+          id="cardsPerDifficulty"
+          class="ml-2 px-2 py-1 border rounded-md bg-white"
+          @change="updateCardsPerDifficulty($event.target.value)"
+        >
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3" selected>3</option>
+        </select>
       </section>
 
       <!-- Footer -->
