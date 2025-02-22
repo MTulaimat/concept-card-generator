@@ -1,30 +1,130 @@
-notebook
-pencil
-rainbow
-sunshine
-guitar
-bridge
-mountain
-computer
-television
-telephone
-backpack
-airplane
-chocolate
-bicycle
-puzzle
-candle
-fireworks
-jungle
-lantern
-magnet
-necklace
-octopus
-parrot
-quilt
-robot
-scooter
-telescope
-volcano
-watermelon
-x-ray
+Kissing
+Smoking
+The Office
+Parks and Recreation
+The Walking Dead
+The Mandalorian
+Sherlock
+Peaky Blinders
+Better Call Saul
+Fargo
+True Detective
+The Wire
+House of Cards
+Game of Thrones
+The Sopranos
+Westworld
+Black Mirror
+Stranger Things
+Dexter
+Breaking Bad
+Kunafa
+Maqluba
+Fattoush
+Kibbeh
+Mutabbal
+Kabsa
+Mansaf
+Shawarma
+Falafel
+Hummus
+Croissant
+Stephen Hawking
+Elon Musk
+Steve Jobs
+Muhammad Ali
+Donald Trump
+Nelson Mandela
+Abraham Lincoln
+Leonardo da Vinci
+Isaac Newton
+Albert Einstein
+Napoleon
+Gandalf
+Pennywise
+Neo
+John Wick
+Robin Hood
+Zorro
+King Kong
+Godzilla
+Frankenstein
+Dracula
+Daredevil
+Magneto
+Doctor Strange
+Abomination
+Hulk
+Captain America
+Loki
+Cloak and Dagger
+Frodo Baggins
+The Terminator
+Darth Vader
+Iron Man
+Deadpool
+Wonder Woman
+Wolverine
+Spider-Man
+Superman
+Batman
+Jack Sparrow
+The Joker
+Lara Croft
+Sherlock Holmes
+James Bond
+The Matrix
+Home Alone
+Jurassic Park
+Star Wars
+Harry Potter
+Finding Nemo
+Toy Story
+Mulan
+Lion King
+Moana
+Aladdin
+Cinderella
+Cars
+Shrek
+Frozen
+Rocky
+Jaws
+Avatar
+Titanic
+Thanos
+Walter White
+Scooby-Doo
+Goku
+Mario
+SpongeBob SquarePants
+Rick and Morty
+Michael Jordan
+Barack Obama
+Jeff Bezos
+Friends
+How I Met Your Mother
+The Big Bang Theory
+Brooklyn Nine-Nine
+Lost
+Prison Break
+Vikings
+Narcos
+The Boys
+Rick and Morty
+Avatar: The Last Airbender
+Doctor Who
+Baklava
+Biryani
+Tamale
+Ratatouille
+Sushi
+Bubble Tea
+Acai Bowl
+Pina Colada
+Hannibal Lecter
+Thanos
+The Flash
+Green Lantern
+Aquaman
+Optimus Prime
