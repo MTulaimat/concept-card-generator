@@ -1,102 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Mobile-First Page</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script src="script.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
-    <!-- Link your external JS file -->
-    <link rel="stylesheet" href="styles.css" />
-  </head>
-  <body
-    x-data="cardData"
-    class="bg-[#EEEEEE] text-gray-900 flex justify-center"
-  >
-    <div class="max-w-md w-full min-h-screen">
-      <!-- Header -->
-      <header class="bg-[#00ADB5] text-white shadow-md rounded-b-xl p-4">
-        <div class="flex justify-center items-center">
-          <h1 class="text-xl font-bold">Concept Card Generator</h1>
-        </div>
-      </header>
 
-      <!-- Hero Section -->
-      <section class="text-center p-6">
-        <h2 class="text-2xl font-semibold">Click on card</h2>
-      </section>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Concept Word Generator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="script.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <!-- Link your external JS file -->
+  <link rel="stylesheet" href="styles.css" />
+</head>
 
-      <!-- Card Section -->
+<body x-data="cardData" class="bg-[#EEEEEE] pb-10 text-gray-900 flex justify-center">
+  <div class="max-w-md w-full min-h-screen">
+    <!-- Header -->
+    <header class="bg-[#00ADB5] text-white shadow-md rounded-b-xl p-4">
+      <div class="flex justify-center items-center">
+        <h1 class="text-xl font-bold">Concept Card Generator</h1>
+      </div>
+    </header>
+
+    <!-- Game Page -->
+    <div class="mt-6" x-show="showCardsPage === true">
+
       <section class="text-center">
-        <div
-          id="card"
-          class="w-[22rem] flex flex-col items-center gap-4 mx-auto p-8 shadow-cstm rounded-xl bg-white"
-          @click="generateCard()"
-        >
-          <template
-            x-for="(wordSet, index) in Object.values(data.cards)"
-            :key="index"
-          >
+        <div id="card" class="w-[22rem] flex flex-col items-center gap-4 mx-auto p-8 shadow-cstm rounded-xl bg-white">
+          <template x-for="(wordSet, index) in Object.values(currentWords)" :key="index">
             <div
-              class="relative w-full border-4 flex flex-col items-center gap-3 rounded-tl-2xl rounded-br-2xl py-4"
-              :style="'border-color: ' + wordSet.color"
-            >
-              <div
-                class="text-xl scale-[1.75] absolute top-0 right-0 translate-x-1/2 -translate-y-1/2"
-                x-text="wordSet.emoji"
-              ></div>
+              class="relative min-h-24 w-full border-4 flex flex-col justify-center items-center gap-3 rounded-tl-2xl rounded-br-2xl py-4"
+              :style="'border-color: ' + data.cards[Object.keys(currentWords)[index]].color;">
+              <div class="text-xl scale-[1.75] absolute top-0 right-0 translate-x-1/2 -translate-y-1/2"
+                x-text="data.cards[Object.keys(currentWords)[index]].emoji"></div>
 
-              <template
-                x-for="(word, idx) in wordSet.words[settings.language].slice(0, settings.cardsPerDifficulty)"
-                :key="idx"
-              >
-                <div class="relative w-full">
+              <template x-for="(word, idx) in wordSet" :key="idx">
+                <div class="relative w-full capitalize font-bold">
                   <p x-text="word"></p>
-                  <div
-                    class="absolute font-bold left-0 top-1/2 size-7 flex items-center justify-center rounded-full -translate-x-1/2 -translate-y-1/2 text-white"
-                    x-text="idx + wordSet.order"
-                    :style="'background-color: ' + wordSet.color"
-                  ></div>
                 </div>
               </template>
+
+              <div
+                class="absolute rotate-[-90deg] text-[.8rem] font-bold left-[-2px] top-1/2 px-2 size-fit flex items-center justify-center rounded-full -translate-x-1/2 -translate-y-1/2 text-white"
+                x-text="data.cards[Object.keys(currentWords)[index]].difficulty"
+                :style="'background-color: ' + data.cards[Object.keys(currentWords)[index]].color"></div>
             </div>
           </template>
         </div>
       </section>
 
+      <!-- Cards Progress -->
       <section class="text-center mt-4">
-        <button
-          class="mb-4 px-4 py-2 bg-blue-500 text-white rounded-md"
-          @click="toggleLanguage()"
-        >
-          Toggle Language
-        </button>
+        <p class="text-lg font-semibold">
+          <span x-text="cardsReached"></span> /
+          <span x-text="totalCards"></span>
+        </p>
       </section>
 
       <section class="text-center mt-4">
-        <label for="cardsPerDifficulty" class="text-lg font-semibold"
-          >Words Per Difficulty:</label
-        >
-        <select
-          id="cardsPerDifficulty"
-          class="ml-2 px-2 py-1 border rounded-md bg-white"
-          @change="updateCardsPerDifficulty($event.target.value)"
-        >
+        <button class="px-4 py-2 bg-blue-500 text-white rounded-md" @click="generateCard()">
+          Generate Next Card
+        </button>
+      </section>
+
+    </div>
+
+    <!-- Settings Page -->
+    <div class="px-8" x-show="showCardsPage === false">
+
+      <!-- Game Name -->
+      <section class="mt-4">
+        <label for="gameName" class="text-lg font-semibold">Game Name:</label>
+        <input type="text" id="gameName" x-model="gameName"
+          class="ml-2 px-2 py-1 border rounded-md bg-white text-center" placeholder="Enter Game Name (or leave blank)">
+      </section>
+
+      <!-- Language Selector -->
+      <section class="mt-4">
+        <label for="language" class="text-lg font-semibold">Language:</label>
+        <select id="language" class="ml-2 px-2 py-1 border rounded-md bg-white"
+          @change="updateLanguage($event.target.value)">
+          <option value="english">English</option>
+          <option value="arabic">Arabic</option>
+        </select>
+      </section>
+
+      <section class="mt-4">
+        <label for="cardsPerDifficulty" class="text-lg font-semibold">Words Per Level:</label>
+        <select id="cardsPerDifficulty" class="ml-2 px-2 py-1 border rounded-md bg-white"
+          @change="updateCardsPerDifficulty($event.target.value)">
           <option value="1">1</option>
           <option value="2">2</option>
           <option value="3" selected>3</option>
         </select>
       </section>
 
-      <!-- Footer -->
-      <footer
-        class="fixed bottom-0 w-full left-0 bg-gray-800 text-white text-center p-2"
-      >
-        <p class="text-sm">
-          Copyright &copy; 2025 Bing Shmigling®. All rights NOT reserved.
-        </p>
-      </footer>
+      <!-- Saved Games List -->
+      <section class="mt-4 w-full">
+        <div class="flex justify-between items-center">
+          <h2 class="text-lg font-semibold text-left">Continue from saved games or:</h2>
+          <!-- Start Button -->
+          <button class="px-2 py-1 bg-green-500 text-white rounded-md" @click="resetGame()">
+            New
+          </button>
+        </div>
+        <ul class="mt-2 space-y-2 w-full">
+          <template x-for="(save, index) in savedGames" :key="index">
+            <li class="flex justify-between items-center border p-3 rounded-lg bg-gray-100 shadow-md w-full">
+              <!-- Game Info (Left-aligned) -->
+              <div class="flex flex-col">
+                <p class="text-md font-semibold" x-text="save.gameName"></p>
+                <p class="text-sm text-gray-600">Language: <span class="font-bold" x-text="save.language"></span></p>
+                <p class="text-sm text-gray-600">Words Per Level: <span class="font-bold"
+                    x-text="save.cardsPerDifficulty"></span></p>
+                <p class="text-sm text-gray-600">
+                  Progress: <span class="font-bold" x-text="save.cardsCompleted"></span> / <span class="font-bold"
+                    x-text="save.totalCards"></span>
+                </p>
+              </div>
+
+              <!-- Actions (Right-aligned icons) -->
+              <div class="flex gap-4">
+                <!-- Load Game Icon -->
+                <button class="text-blue-500 hover:text-blue-700 text-xl" @click="loadGame(save.key)">
+                  ▶️ <!-- Play Icon -->
+                </button>
+
+                <!-- Delete Game Icon -->
+                <button class="text-red-500 hover:text-red-700 text-xl" @click="deleteGame(save.key)">
+                  ❌ <!-- Delete Icon -->
+                </button>
+              </div>
+            </li>
+          </template>
+        </ul>
+      </section>
+
+
     </div>
-  </body>
+
+    <!-- Footer -->
+    <footer class="fixed bottom-0 w-full left-0 bg-gray-800 text-white text-center p-2">
+      <p class="text-sm">
+        Copyright &copy; 2025 Bing Shmigling®. All rights NOT reserved.
+      </p>
+    </footer>
+  </div>
+</body>
+
 </html>
