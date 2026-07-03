@@ -118,3 +118,123 @@ Ramadan
 Eid
 Christmas
 World Cup
+Werewolf
+Mummy
+Giant
+Gladiator
+Pharaoh
+Sultan
+Samurai
+Viking
+Referee
+Lifeguard
+Postman
+Mechanic
+Helmet
+Drone
+Binoculars
+Refrigerator
+Elevator
+Escalator
+Washing machine
+Vacuum cleaner
+Microwave
+Air conditioner
+Seatbelt
+Alarm clock
+Hourglass
+Thermometer
+Stethoscope
+Syringe
+Magnifying glass
+Fire extinguisher
+ATM
+Cable car
+Ferris wheel
+Roller coaster
+Seesaw
+Igloo
+Dam
+Tunnel
+Skyscraper
+Tent
+Bat
+Hedgehog
+Chameleon
+Seahorse
+Snail
+Sloth
+Koala
+Raccoon
+Beaver
+Otter
+Lobster
+Shrimp
+Starfish
+Firefly
+Caterpillar
+Croissant
+Pancake
+Milkshake
+Lemonade
+Hot dog
+Taco
+Noodles
+Kebab
+Biryani
+Couscous
+Fattoush
+Trampoline
+Swing
+Yoga
+Jump rope
+Musical chairs
+Arm wrestling
+Darts
+Billiards
+Rock climbing
+Gymnastics
+Pinocchio
+Tarzan
+Popeye
+Donald Duck
+Pikachu
+Doraemon
+Shrek
+Frozen
+Finding Nemo
+Toy Story
+The Lion King
+Kung Fu Panda
+Minions
+The Smurfs
+Barbie
+Instagram
+TikTok
+Netflix
+PlayStation
+Nike
+Adidas
+Pepsi
+Minecraft
+Disneyland
+Hollywood
+Palm Jumeirah
+Golden Gate Bridge
+Mount Fuji
+Cemetery
+Gym
+Factory
+Fire station
+Police station
+University
+Barbershop
+Post office
+Flood
+Avalanche
+Sandstorm
+Full moon
+Shooting star
+Sunrise
+New Year
+Graduation
