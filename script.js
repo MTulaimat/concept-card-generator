@@ -79,7 +79,9 @@ document.addEventListener("alpine:init", () => {
 
     async fetchWords(filePath) {
       try {
-        const response = await fetch(filePath);
+        // Revalidate with the server on every load so a fresh deploy's
+        // word lists show up immediately instead of after the CDN TTL.
+        const response = await fetch(filePath, { cache: "no-cache" });
         const text = await response.text();
         const words = text
           .split("\n")
