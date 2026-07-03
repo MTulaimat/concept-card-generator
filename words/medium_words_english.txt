@@ -1,130 +1,120 @@
-Kissing
-Smoking
-The Office
-Parks and Recreation
-The Walking Dead
-The Mandalorian
-Sherlock
-Peaky Blinders
-Better Call Saul
-Fargo
-True Detective
-The Wire
-House of Cards
-Game of Thrones
-The Sopranos
-Westworld
-Black Mirror
-Stranger Things
-Dexter
-Breaking Bad
-Kunafa
-Maqluba
-Fattoush
-Kibbeh
-Mutabbal
-Kabsa
-Mansaf
-Shawarma
+Pirate
+Ninja
+Knight
+Wizard
+Witch
+Angel
+Ghost
+Zombie
+Vampire
+Mermaid
+Fairy
+Genie
+Dragon
+Dinosaur
+Unicorn
+Alien
+Astronaut
+Robot
+Skeleton
+Clown
+Cowboy
+Detective
+Spy
+Magician
+Pilot
+Dentist
+Thief
+Snowman
+Sandcastle
+Lighthouse
+Windmill
+Waterfall
+Volcano
+Island
+Iceberg
+Oasis
+Cactus
+Pyramid
+Submarine
+Parachute
+Telescope
+Satellite
+Anchor
+Compass
+Treasure
+Magnet
+Fireworks
+Fountain
+Maze
+X-ray
+Wheelchair
+Microphone
+Headphones
+Selfie
+Zebra
+Kangaroo
+Panda
+Dolphin
+Octopus
+Peacock
+Flamingo
+Crocodile
+Scorpion
+Jellyfish
+Falcon
+Ostrich
+Eagle
 Falafel
 Hummus
-Croissant
-Stephen Hawking
-Elon Musk
-Steve Jobs
-Muhammad Ali
-Donald Trump
-Nelson Mandela
-Abraham Lincoln
-Leonardo da Vinci
-Isaac Newton
-Albert Einstein
-Napoleon
-Gandalf
-Pennywise
-Neo
-John Wick
-Robin Hood
-Zorro
-King Kong
-Godzilla
-Frankenstein
-Dracula
-Daredevil
-Magneto
-Doctor Strange
-Abomination
-Hulk
-Captain America
-Loki
-Cloak and Dagger
-Frodo Baggins
-The Terminator
-Darth Vader
-Iron Man
-Deadpool
-Wonder Woman
-Wolverine
-Spider-Man
+Shawarma
+Kunafa
+Baklava
+Maqluba
+Mansaf
+Sushi
+Donut
+French fries
+Dates
+Chess
+Skateboard
+Surfing
+Skiing
+Karate
+Marathon
+Hide and seek
+Tug of war
+Titanic
+Harry Potter
+Tom and Jerry
+Mickey Mouse
+SpongeBob
 Superman
 Batman
-Jack Sparrow
-The Joker
-Lara Croft
-Sherlock Holmes
-James Bond
-The Matrix
-Home Alone
-Jurassic Park
-Star Wars
-Harry Potter
-Finding Nemo
-Toy Story
-Mulan
-Lion King
-Moana
+Spider-Man
 Aladdin
 Cinderella
-Cars
-Shrek
-Frozen
-Rocky
-Jaws
-Avatar
-Titanic
-Thanos
-Walter White
-Scooby-Doo
-Goku
-Mario
-SpongeBob SquarePants
-Rick and Morty
-Michael Jordan
-Barack Obama
-Jeff Bezos
-Friends
-How I Met Your Mother
-The Big Bang Theory
-Brooklyn Nine-Nine
-Lost
-Prison Break
-Vikings
-Narcos
-The Boys
-Rick and Morty
-Avatar: The Last Airbender
-Doctor Who
-Baklava
-Biryani
-Tamale
-Ratatouille
-Sushi
-Bubble Tea
-Acai Bowl
-Pina Colada
-Hannibal Lecter
-Thanos
-The Flash
-Green Lantern
-Aquaman
-Optimus Prime
+Santa Claus
+Mr. Bean
+Facebook
+YouTube
+WhatsApp
+Google
+Lego
+McDonald's
+Eiffel Tower
+Statue of Liberty
+Burj Khalifa
+Library
+Museum
+Prison
+Stadium
+Pharmacy
+Aquarium
+Amusement park
+Earthquake
+Tornado
+Ramadan
+Eid
+Christmas
+World Cup
