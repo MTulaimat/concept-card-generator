@@ -8,6 +8,10 @@ document.addEventListener("alpine:init", () => {
     isFlipping: false,
     cardFlipped: false,
     showReshuffleNotice: false,
+    isStarting: false,
+    loadError: false,
+    wordsReady: null,
+    flipTimeouts: [],
     settings: {
       cardsPerDifficulty: 3,
       language: "english",
@@ -18,7 +22,11 @@ document.addEventListener("alpine:init", () => {
     shuffledHard: [],
 
     async init() {
-      await this.loadWordLists();
+      // Keep the promise around so startGame() can await the same load
+      // instead of racing it (starting before the files finish loading
+      // used to shuffle empty decks).
+      this.wordsReady = this.loadWordLists();
+      await this.wordsReady;
       this.loadSavedGames();
     },
 
@@ -96,49 +104,87 @@ document.addEventListener("alpine:init", () => {
 
     // ---------- Game flow ----------
     async startGame() {
-      if (this.data.cards.easy.words[this.settings.language].length === 0) {
-        await this.loadWordLists();
+      if (this.isStarting) return;
+      this.isStarting = true;
+      try {
+        // Never start until the word lists are actually loaded.
+        if (this.wordsReady) await this.wordsReady;
+        if (this.data.cards.easy.words[this.settings.language].length === 0) {
+          this.wordsReady = this.loadWordLists();
+          await this.wordsReady;
+        }
+
+        if (!this.gameName.trim()) {
+          this.gameName = this.defaultGameName();
+        }
+        this.gameName = this.gameName.trim();
+
+        // Snapshot the key so unnamed games don't drift to a new
+        // timestamp key on every later save.
+        const gameKey = `game_${this.gameName}`;
+        this.activeGameKey = gameKey;
+
+        // Resuming an existing game restores the settings it was played with.
+        const savedLanguage = this.loadFromStorage(`${gameKey}_language`);
+        const savedPerLevel = this.loadFromStorage(
+          `${gameKey}_cardsPerDifficulty`
+        );
+        if (savedLanguage) this.settings.language = savedLanguage;
+        if (savedPerLevel)
+          this.settings.cardsPerDifficulty = parseInt(savedPerLevel);
+
+        // Empty stored decks (e.g. saved by an old version before the
+        // words had loaded) fall through to a fresh shuffle, so broken
+        // saves self-heal.
+        const restoreDeck = (suffix, sourceWords) => {
+          const stored = this.loadFromStorage(`${gameKey}${suffix}`);
+          return Array.isArray(stored) && stored.length
+            ? stored
+            : this.shuffleArray([...sourceWords]);
+        };
+        this.shuffledEasy = restoreDeck(
+          "_shuffledEasy",
+          this.data.cards.easy.words[this.settings.language]
+        );
+        this.shuffledMedium = restoreDeck(
+          "_shuffledMedium",
+          this.data.cards.medium.words[this.settings.language]
+        );
+        this.shuffledHard = restoreDeck(
+          "_shuffledHard",
+          this.data.cards.hard.words[this.settings.language]
+        );
+
+        // Still empty means the word files couldn't be fetched at all
+        // (e.g. offline) — stay on the menu instead of showing a blank card.
+        if (!this.deckSize) {
+          this.loadError = true;
+          return;
+        }
+        this.loadError = false;
+
+        this.currentWordIndex =
+          this.loadFromStorage(`${gameKey}_currentWordIndex`) || 0;
+        if (this.currentWordIndex >= this.deckSize) {
+          this.currentWordIndex = 0;
+        }
+
+        this.persistDeck();
+        this.saveToStorage(`${gameKey}_currentWordIndex`, this.currentWordIndex);
+        this.saveGameName(gameKey);
+
+        // Deal the first card in with a flip.
+        this.clearFlipTimeouts();
+        this.cardFlipped = true;
+        this.showCardsPage = true;
+        this.flipTimeouts.push(
+          setTimeout(() => {
+            this.cardFlipped = false;
+          }, 400)
+        );
+      } finally {
+        this.isStarting = false;
       }
-
-      if (!this.gameName.trim()) {
-        this.gameName = this.defaultGameName();
-      }
-      this.gameName = this.gameName.trim();
-
-      // Snapshot the key so unnamed games don't drift to a new
-      // timestamp key on every later save.
-      const gameKey = `game_${this.gameName}`;
-      this.activeGameKey = gameKey;
-
-      // Resuming an existing game restores the settings it was played with.
-      const savedLanguage = this.loadFromStorage(`${gameKey}_language`);
-      const savedPerLevel = this.loadFromStorage(`${gameKey}_cardsPerDifficulty`);
-      if (savedLanguage) this.settings.language = savedLanguage;
-      if (savedPerLevel) this.settings.cardsPerDifficulty = parseInt(savedPerLevel);
-
-      this.shuffledEasy =
-        this.loadFromStorage(`${gameKey}_shuffledEasy`) ||
-        this.shuffleArray([...this.data.cards.easy.words[this.settings.language]]);
-      this.shuffledMedium =
-        this.loadFromStorage(`${gameKey}_shuffledMedium`) ||
-        this.shuffleArray([...this.data.cards.medium.words[this.settings.language]]);
-      this.shuffledHard =
-        this.loadFromStorage(`${gameKey}_shuffledHard`) ||
-        this.shuffleArray([...this.data.cards.hard.words[this.settings.language]]);
-
-      this.currentWordIndex =
-        this.loadFromStorage(`${gameKey}_currentWordIndex`) || 0;
-
-      this.persistDeck();
-      this.saveToStorage(`${gameKey}_currentWordIndex`, this.currentWordIndex);
-      this.saveGameName(gameKey);
-
-      // Deal the first card in with a flip.
-      this.cardFlipped = true;
-      this.showCardsPage = true;
-      setTimeout(() => {
-        this.cardFlipped = false;
-      }, 400);
     },
 
     resetGame() {
@@ -150,6 +196,9 @@ document.addEventListener("alpine:init", () => {
     },
 
     backToMenu() {
+      // Cancel any in-flight flip so its callbacks can't touch the
+      // next game's state after we leave this one.
+      this.clearFlipTimeouts();
       this.showCardsPage = false;
       this.isFlipping = false;
       this.cardFlipped = false;
@@ -157,20 +206,31 @@ document.addEventListener("alpine:init", () => {
       this.loadSavedGames();
     },
 
+    clearFlipTimeouts() {
+      this.flipTimeouts.forEach(clearTimeout);
+      this.flipTimeouts = [];
+    },
+
     generateCard() {
       if (this.isFlipping || !this.deckSize) return;
       this.isFlipping = true;
       this.cardFlipped = true; // flip to the card back
 
-      setTimeout(() => {
-        this.advanceCard(); // swap words while the back is showing
+      this.flipTimeouts.push(
         setTimeout(() => {
-          this.cardFlipped = false; // flip back to reveal the new card
-          setTimeout(() => {
-            this.isFlipping = false;
-          }, 400);
-        }, 120);
-      }, 400);
+          this.advanceCard(); // swap words while the back is showing
+          this.flipTimeouts.push(
+            setTimeout(() => {
+              this.cardFlipped = false; // flip back to reveal the new card
+              this.flipTimeouts.push(
+                setTimeout(() => {
+                  this.isFlipping = false;
+                }, 400)
+              );
+            }, 120)
+          );
+        }, 400)
+      );
     },
 
     advanceCard() {
