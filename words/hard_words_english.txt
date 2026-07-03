@@ -54,6 +54,7 @@ Antarctica
 Grand Canyon
 Taj Mahal
 Colosseum
+Niagara Falls
 Gravity
 Black hole
 Big Bang
@@ -86,7 +87,6 @@ Telepathy
 Hypnosis
 Meditation
 Superstition
-Horoscope
 Karma
 Sarcasm
 Procrastination
@@ -103,8 +103,8 @@ Crossword puzzle
 Rubik's Cube
 Domino effect
 Optical illusion
-Magic trick
-Fortune teller
+Escape room
+Bungee jumping
 Raining cats and dogs
 When pigs fly
 Crocodile tears

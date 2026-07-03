@@ -1,8 +1,7 @@
 Pirate
 Ninja
 Knight
-Wizard
-Witch
+Scarecrow
 Angel
 Ghost
 Zombie
@@ -21,10 +20,10 @@ Clown
 Cowboy
 Detective
 Spy
-Magician
 Pilot
 Dentist
 Thief
+Judge
 Snowman
 Sandcastle
 Lighthouse
@@ -48,6 +47,7 @@ Fireworks
 Fountain
 Maze
 X-ray
+Traffic light
 Wheelchair
 Microphone
 Headphones
@@ -85,7 +85,7 @@ Marathon
 Hide and seek
 Tug of war
 Titanic
-Harry Potter
+Peter Pan
 Tom and Jerry
 Mickey Mouse
 SpongeBob
