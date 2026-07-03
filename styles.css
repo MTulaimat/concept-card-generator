@@ -7,6 +7,12 @@ button {
     -webkit-tap-highlight-color: transparent;
 }
 
+/* Cairo carries the Arabic script (with clean Latin glyphs as a bonus),
+   so game names in either language render well with this class too. */
+.font-arabic {
+    font-family: "Cairo", "Segoe UI", Tahoma, Arial, sans-serif;
+}
+
 .shadow-cstm {
     box-shadow: -2px 4px 0 0 rgba(1, 1, 1, 0.6);
     border: 1px solid #dfdfdf;

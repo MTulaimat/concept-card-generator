@@ -9,6 +9,9 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="script.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;800&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
 </head>
 
@@ -21,7 +24,7 @@
         &#8592;
       </button>
       <h1 class="text-xl font-bold text-center">Concept Card Generator</h1>
-      <p x-cloak x-show="showCardsPage" class="text-center text-white/80 text-sm mt-1 truncate px-12"
+      <p x-cloak x-show="showCardsPage" class="text-center text-white/80 text-sm mt-1 truncate px-12 font-arabic"
         x-text="gameName"></p>
     </header>
 
@@ -51,12 +54,13 @@
 
                   <template x-for="(word, idx) in currentWords[level]" :key="level + '-' + idx">
                     <p class="relative w-full capitalize font-bold break-words"
-                      :class="isArabic ? 'text-xl leading-relaxed' : 'text-base leading-snug'"
+                      :class="isArabic ? 'font-arabic text-xl leading-relaxed' : 'text-base leading-snug'"
                       :dir="isArabic ? 'rtl' : 'ltr'" x-text="word"></p>
                   </template>
 
                   <div
                     class="absolute rotate-[-90deg] text-[.8rem] font-bold left-[-2px] top-1/2 px-2 size-fit flex items-center justify-center rounded-full -translate-x-1/2 -translate-y-1/2 text-white whitespace-nowrap"
+                    :class="isArabic ? 'font-arabic' : ''"
                     x-text="data.cards[level].label[settings.language]"
                     :style="'background-color: ' + data.cards[level].color"></div>
                 </div>
@@ -114,8 +118,8 @@
 
         <div>
           <label for="gameName" class="text-sm font-semibold text-gray-600">Game Name</label>
-          <input type="text" id="gameName" x-model="gameName" placeholder="Optional — e.g. Family Night"
-            class="mt-1 w-full px-3 py-2.5 border border-gray-300 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-[#00ADB5]" />
+          <input type="text" id="gameName" x-model="gameName" placeholder="Optional — e.g. Family Night" dir="auto"
+            class="mt-1 w-full px-3 py-2.5 border border-gray-300 rounded-xl bg-white focus:outline-none focus:ring-2 focus:ring-[#00ADB5] font-arabic" />
         </div>
 
         <div class="grid grid-cols-2 gap-3">
@@ -156,7 +160,7 @@
           <template x-for="save in savedGames" :key="save.key">
             <li class="flex justify-between items-center gap-3 border border-gray-200 p-3.5 rounded-xl bg-gray-50">
               <div class="flex flex-col min-w-0">
-                <p class="text-md font-bold truncate" x-text="save.gameName"></p>
+                <p class="text-md font-bold truncate font-arabic" x-text="save.gameName"></p>
                 <p class="text-xs text-gray-500 mt-0.5">
                   <span class="capitalize" x-text="save.language"></span>
                   &middot; <span x-text="save.cardsPerDifficulty"></span> words/level
